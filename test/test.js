@@ -214,6 +214,42 @@ describe('App', () => {
                     'underReview'
                 );
             });
+            it('Order handling returns underReview', () => {
+                SetUpTestCases('acceptable', 'adverse', 'available', testCases);
+                assert.equal(app.orderHandling(
+                    testCases.clientAccount, testCases.product, testCases.inventory,
+                    testCases.inventoryThreshold, testCases.CCM
+                    ),
+                    'underReview'
+                );
+            });
+            it('Order handling returns pending', () => {
+                SetUpTestCases('acceptable', 'good', 'limited', testCases);
+                assert.equal(app.orderHandling(
+                    testCases.clientAccount, testCases.product, testCases.inventory,
+                    testCases.inventoryThreshold, testCases.CCM
+                    ),
+                    'pending'
+                );
+            });
+            it('Order handling returns pending', () => {
+                SetUpTestCases('acceptable', 'good', 'soldout', testCases);
+                assert.equal(app.orderHandling(
+                    testCases.clientAccount, testCases.product, testCases.inventory,
+                    testCases.inventoryThreshold, testCases.CCM
+                    ),
+                    'pending'
+                );
+            });
+            it('Order handling returns pending', () => {
+                SetUpTestCases('adverse', 'good', 'limited', testCases);
+                assert.equal(app.orderHandling(
+                    testCases.clientAccount, testCases.product, testCases.inventory,
+                    testCases.inventoryThreshold, testCases.CCM
+                    ),
+                    'pending'
+                );
+            });
         });
     })
 });
