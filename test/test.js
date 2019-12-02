@@ -36,46 +36,224 @@ let testCases = {
 
 describe('App', () => {
     describe('OrderHandling', () => {
-        describe('Statement Coverage', () => {
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('invalid', 'invalid', 'invalid', testCases);
-                assert.equal(app.orderHandling(
+        describe('Q3. Structural unit test', () => {
+            describe('Statement Coverage', () => {
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('invalid', 'invalid', 'invalid', testCases);
+                    assert.equal(app.orderHandling(
                         testCases.clientAccount, testCases.product, testCases.inventory,
                         testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns accepted', () => {
+                    SetUpTestCases('excellent', 'good', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'accepted'
+                    );
+                });
+                it('Order handling returns underReview', () => {
+                    SetUpTestCases('good', 'adverse', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'underReview'
+                    );
+                });
+                it('Order handling returns pending', () => {
+                    SetUpTestCases('acceptable', 'good', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'pending'
+                    );
+                });
             });
-            it('Order handling returns accepted', () => {
-                SetUpTestCases('excellent', 'good', 'available', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'accepted'
-                );
+
+            describe('Branch Coverage', () => {
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('invalid', 'invalid', 'invalid', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns accepted', () => {
+                    SetUpTestCases('excellent', 'good', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'accepted'
+                    );
+                });
+                it('Order handling returns underReview', () => {
+                    SetUpTestCases('good', 'adverse', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'underReview'
+                    );
+                });
+                it('Order handling returns pending', () => {
+                    SetUpTestCases('acceptable', 'good', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'pending'
+                    );
+                });
             });
-            it('Order handling returns underReview', () => {
-                SetUpTestCases('good', 'adverse', 'available', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'underReview'
-                );
-            });
-            it('Order handling returns pending', () => {
-                SetUpTestCases('acceptable', 'good', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'pending'
-                );
+
+            describe('Path Coverage', () => {
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('invalid', 'good', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('acceptable', 'invalid', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('acceptable', 'good', 'invalid', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('acceptable', 'adverse', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('acceptable', 'adverse', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('adverse', 'good', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns rejected', () => {
+                    SetUpTestCases('adverse', 'adverse', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'rejected'
+                    );
+                });
+                it('Order handling returns accepted', () => {
+                    SetUpTestCases('excellent', 'good', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'accepted'
+                    );
+                });
+                it('Order handling returns accepted', () => {
+                    SetUpTestCases('good', 'good', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'accepted'
+                    );
+                });
+                it('Order handling returns accepted', () => {
+                    SetUpTestCases('acceptable', 'good', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'accepted'
+                    );
+                });
+                it('Order handling returns underReview', () => {
+                    SetUpTestCases('good', 'adverse', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'underReview'
+                    );
+                });
+                it('Order handling returns underReview', () => {
+                    SetUpTestCases('acceptable', 'adverse', 'available', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'underReview'
+                    );
+                });
+                it('Order handling returns pending', () => {
+                    SetUpTestCases('acceptable', 'good', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'pending'
+                    );
+                });
+                it('Order handling returns pending', () => {
+                    SetUpTestCases('acceptable', 'good', 'soldout', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'pending'
+                    );
+                });
+                it('Order handling returns pending', () => {
+                    SetUpTestCases('adverse', 'good', 'limited', testCases);
+                    assert.equal(app.orderHandling(
+                        testCases.clientAccount, testCases.product, testCases.inventory,
+                        testCases.inventoryThreshold, testCases.CCM
+                        ),
+                        'pending'
+                    );
+                });
             });
         });
-
-        describe('Branch Coverage', () => {
+        describe('Q5. Integration test', () => {
             it('Order handling returns rejected', () => {
                 SetUpTestCases('invalid', 'invalid', 'invalid', testCases);
                 assert.equal(app.orderHandling(
@@ -113,145 +291,7 @@ describe('App', () => {
                 );
             });
         });
-
-        describe('Path Coverage', () => {
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('invalid', 'good', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('acceptable', 'invalid', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('acceptable', 'good', 'invalid', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('acceptable', 'adverse', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('acceptable', 'adverse', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('adverse', 'good', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns rejected', () => {
-                SetUpTestCases('adverse', 'adverse', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'rejected'
-                );
-            });
-            it('Order handling returns accepted', () => {
-                SetUpTestCases('excellent', 'good', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'accepted'
-                );
-            });
-            it('Order handling returns accepted', () => {
-                SetUpTestCases('good', 'good', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'accepted'
-                );
-            });
-            it('Order handling returns accepted', () => {
-                SetUpTestCases('acceptable', 'good', 'available', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'accepted'
-                );
-            });
-            it('Order handling returns underReview', () => {
-                SetUpTestCases('good', 'adverse', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'underReview'
-                );
-            });
-            it('Order handling returns underReview', () => {
-                SetUpTestCases('acceptable', 'adverse', 'available', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'underReview'
-                );
-            });
-            it('Order handling returns pending', () => {
-                SetUpTestCases('acceptable', 'good', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'pending'
-                );
-            });
-            it('Order handling returns pending', () => {
-                SetUpTestCases('acceptable', 'good', 'soldout', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'pending'
-                );
-            });
-            it('Order handling returns pending', () => {
-                SetUpTestCases('adverse', 'good', 'limited', testCases);
-                assert.equal(app.orderHandling(
-                    testCases.clientAccount, testCases.product, testCases.inventory,
-                    testCases.inventoryThreshold, testCases.CCM
-                    ),
-                    'pending'
-                );
-            });
-        });
-    })
+    });
 });
 
 // SetUpTestCases function is used to translate the test case data into the required data type for testing functions;
